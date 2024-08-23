@@ -1,5 +1,19 @@
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+    resource: '../src/Controller/'
     type: attribute
+
+register_user:
+    path: "/api/user"
+    controller: App\Controller\RegisterUserController::__invoke
+    methods: ['POST']
+All_users:
+    path: "/api/user"
+    controller: App\Controller\UsersController::getAllUsers
+    methods: ['GET']
+
+User_ByEmail:
+    path: "/api/user/email/{email}"
+    controller: App\Controller\UsersController::getUserByEmail
+    methods: ['GET']
+# api_login_check:
+#     path: "/api/login_check"
