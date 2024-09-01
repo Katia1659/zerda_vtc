@@ -1,6 +1,9 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import {getAddressSuggestions} from "../../api/backend/adressAction";
+import {
+  React,
+  useState,
+  PropTypes,
+  getAddressSuggestions
+} from "./../index";
 
 export function AddressField ({
     field,
@@ -35,18 +38,22 @@ export function AddressField ({
     };
 
     return (
-      <div className="form-control">
+      <div className="mb-4 pb-2 w-full flex flex-col">
         <label htmlFor={field.name}>{label}</label>
         <input
           id={field.name}
+          name={field.name}
           type="text"
           placeholder={placeholder}
           value={inputValue}
           onChange={handleChange}
           onBlur={field.onBlur}
+          className="shadow appearance-none font-nunito border rounded py-2 px-2 text-gray-700leading-tight focus:outline-none focus:shadow-outline focus:shadow-indigo-900 mb-2"
         />
         {form.errors[field.name] && form.touched[field.name] && (
-          <div className="errors">{form.errors[field.name]}</div>
+          <div className="text-red-500 font-nunito">
+            {form.errors[field.name]}
+          </div>
         )}
         <ul>
           {suggestions.map((suggestion) => (

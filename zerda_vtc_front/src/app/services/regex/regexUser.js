@@ -6,7 +6,9 @@ export const USER_PHONE = /^0[6-7]([.]?[0-9]{2}){4}$/;
 export const USER_PASSWORD =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/;
 
-export const SUPPORTED_FORMATS = ["image/jpeg", "image/png", "image/jpg"];
+export const SUPPORTED_FORMATS = {
+  image: ["jpg", "gif", "png", "jpeg", "svg", "webp"],
+};
 
 // export const ADDRESS_NUMBER = /^[0-9]{1,}$/;
 

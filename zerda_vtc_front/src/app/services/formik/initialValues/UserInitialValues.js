@@ -6,7 +6,7 @@
  * 
  */
 
-export const userInitialValues = {
+export  const userInitialValues = {
   email: "",
   password: "",
   confirmPassword: "",
@@ -14,5 +14,6 @@ export const userInitialValues = {
   lastName: "",
   phone: "",
   address: "",
-  birthday: ""
+  birthday: "",
+  photo: null,
 };

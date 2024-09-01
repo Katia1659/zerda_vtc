@@ -16,7 +16,7 @@ dateMax.setFullYear(dateMax.getFullYear() - 18);
 
 // L'objet Field contien touts les validation pour toutes les files de nortr formulaire pour la réutiluser dans les différentes Shemas de validation: 
 
-const IdentificaFields = {
+export const IdentificaFields = {
   email: Yup.string()
     .email(
       'Veuillez entrée un adresse email valide exemple: "youremail@domain.com"'
@@ -26,7 +26,6 @@ const IdentificaFields = {
       let isUnique = true;
       try {
         isUnique = await emailValidation(email);
-        console.log(isUnique);
         return isUnique;
       } catch (error) {
         console.log("Erreur lors de la vérification de l'email:", error);
@@ -44,7 +43,7 @@ const IdentificaFields = {
     .oneOf([Yup.ref("password")], "Les mots de passe ne correspondent pas")
 }
 
-const PersonelFields = {
+export const PersonelFields = {
   name: Yup.string()
     .required("champ obligatoire")
     .matches(Regex.USER_NAME, "ce champ ne doit contenir que des lettres")
@@ -62,8 +61,27 @@ const PersonelFields = {
   address: Yup.string().required("champ obligatoire"),
 };
 
-const ProfileField = {
-  photo: Yup.mixed().required("une photo est obligatoire"),
+export const validFileExtensions = {
+  photo: ["jpg", "gif", "png", "jpeg", "svg", "webp"],
+};
+
+export function isValidFileType (fileName, fileType){
+ 
+  return (
+    fileName &&
+    validFileExtensions[fileType].includes(fileName.split(".").pop().toLowerCase())
+  );
+}
+
+export const ProfileField = {
+  photo: Yup.mixed()
+    .required("une photo est obligatoire")
+    .test("is-valid-type", "format non supporter", (value) =>{
+      if (!value) return false; // handle the case where no file is uploaded
+      if (!(value instanceof File)) return false;
+      return isValidFileType(value.name, 'photo')
+    }
+    ),
 };
 
 // Fonction pour vérifier si l'e-mail existe
@@ -95,3 +113,4 @@ export const schemaIdentificationField = Yup.object().shape(IdentificaFields);
 export const schemaPersonelField = Yup.object().shape(PersonelFields);
 
 export const schemaProfileField = Yup.object().shape(ProfileField);
+
